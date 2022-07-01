@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
+import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import { reset, login } from '../../Store/Auth/authSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import './style.css'
-import { reset, login } from '../../Store/Auth/authSlice'
 
 function Login() {
 
@@ -28,14 +30,14 @@ function Login() {
     message 
   } = useSelector((state) => state.auth);
 
-  const onChange = (e) => {
+  const handleChange = (e) => {
     setFormData((prefState) => ({
       ...prefState,
       [e.target.name]: e.target.value
     }));
   }
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const userData = {
@@ -67,42 +69,40 @@ function Login() {
   )}
 
   return (
-    <div className='login-container'>
-        <h1>Login</h1>
-
-        <form onSubmit={onSubmit}>
-          
-          <div className='inputs'>
-            <label>Email</label>
-            <input 
-              type="text" 
-              name="email" 
+    <form onSubmit={handleSubmit}>
+        <Grid container alignItems="center" justifyContent="center" direction="column">
+            <h1>Login</h1>
+            <Grid item>
+            <TextField
+              id="email-input"
+              name="email"
+              label="Email"
+              type="text"
               value={email}
-              placeholder='Enter your email'
-              onChange={onChange}
-              />
-          </div>
+              onChange={handleChange}
+            />
+          </Grid>
 
-          <div className='inputs'>
-            <label>Password</label>
-            <input 
-              type="text" 
-              name="password" 
+          <Grid item>
+            <TextField
+              id="password-input"
+              name="password"
+              label="Password"
+              type="text"
               value={password}
-              placeholder='Enter your password'
-              onChange={onChange}
-              />
-          </div>
+              onChange={handleChange}
+            />
+          </Grid>
 
-          <button 
-            type="submit"
-            style={{cursor: 'pointer'}}
-          >
+          <Button 
+              variant="contained" 
+              color="primary" 
+              type="submit">
             Submit
-          </button>
+          </Button>
 
+          </Grid>
         </form>
-    </div>
   )
 }
 
