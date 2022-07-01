@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import './style.css'
+import { reset, register } from '../../Store/Auth/authSlice'
 
 function Registration() {
 
@@ -10,7 +14,23 @@ function Registration() {
     confirmPassword: ''
   });
 
-  const { name, email, password, confirmPassword } = formData;
+  const { 
+    name, 
+    email, 
+    password, 
+    confirmPassword 
+  } = formData;
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { 
+    user, 
+    isLoading, 
+    isError, 
+    isSuccess, 
+    message 
+  } = useSelector((state) => state.auth);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -21,7 +41,42 @@ function Registration() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    if(password !== confirmPassword) {
+      toast.error('Password do not match')
+    } else {
+      const userData = {
+        name,
+        email,
+        password,
+        confirmPassword
+      }
+
+      dispatch(register(userData));
+    }
   }
+
+  useEffect(() => {
+    if(isError) {
+      toast.error(message)
+    }
+    
+    if(isSuccess || user){
+      navigate('/')
+    }
+
+    dispatch(reset());
+
+  }, [user, isError, isSuccess, message, navigate, dispatch])
+
+
+  if(isLoading) {
+    return (
+       <h1>
+        Loading...
+       </h1>
+  )}
+
 
   return (
     <div className='registration-container'>
@@ -29,7 +84,7 @@ function Registration() {
 
         <form onSubmit={onSubmit}>
           <div className='inputs'>
-            <label for="">Name</label>
+            <label >Name</label>
             <input 
               type="text" 
               name="name"
@@ -40,7 +95,7 @@ function Registration() {
           </div>
 
           <div className='inputs'>
-            <label for="">Email</label>
+            <label >Email</label>
             <input 
               type="text"
               name="email"
@@ -51,7 +106,7 @@ function Registration() {
           </div>
 
           <div className='inputs'>
-            <label for="">Password</label>
+            <label >Password</label>
             <input 
               type="text" 
               name="password" 
@@ -62,7 +117,7 @@ function Registration() {
           </div>
 
           <div className='inputs'>
-            <label for="">Confirm Password</label>
+            <label >Confirm Password</label>
             <input 
               type="text" 
               name="confirmPassword" 
@@ -72,7 +127,6 @@ function Registration() {
               />  
           </div>
           
-
           <button 
             type="submit"
             style={{cursor: 'pointer'}}>

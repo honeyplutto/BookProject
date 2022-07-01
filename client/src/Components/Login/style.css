@@ -1,0 +1,13 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputs input {
+    width: 200px;
+}
