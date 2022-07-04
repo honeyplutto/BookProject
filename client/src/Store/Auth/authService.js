@@ -4,7 +4,8 @@ const handleRegister = async (userData) => {
 
     const response = await axios.post('/users/registration', userData);
 
-    if (response.data) {
+    console.log(response)
+    if (response.data.success) {
         localStorage.setItem('user', JSON.stringify(response.data));
     }
 

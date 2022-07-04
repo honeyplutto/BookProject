@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { reset, login } from '../../Store/Auth/authSlice'
+import { reset, login } from '../../store/auth/authSlice'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 function Login() {
@@ -98,8 +98,19 @@ function Login() {
               variant="contained" 
               color="primary" 
               type="submit">
-            Submit
+            Sign in
           </Button>
+
+          <Link 
+            to={'/registration'}
+            style={{
+              'textDecoration' : 'none',
+              'fontSize' : '18px',
+              'color' : '#3f51b5'
+            }}
+            >
+            Are you registration?
+          </Link>
 
           </Grid>
         </form>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { reset, register } from '../../Store/Auth/authSlice'
+import { reset, registration } from '../../store/auth/authSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -48,7 +48,7 @@ function Registration() {
               confirmPassword
             }
       
-            dispatch(register(userData));
+            dispatch(registration(userData));
           }
     };
 
@@ -130,7 +130,7 @@ function Registration() {
               variant="contained" 
               color="primary" 
               type="submit">
-            Submit
+            Registration
           </Button>
         </Grid>
     </form>

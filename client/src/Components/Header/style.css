@@ -1,6 +1,3 @@
-.navbar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
+.avatar {
+    margin-right: 10xp;
 }

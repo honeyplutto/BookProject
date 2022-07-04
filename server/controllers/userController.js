@@ -15,14 +15,17 @@ const registerUser = asyncHandler( async(req, res) => {
         throw new Error('User already exists');
     }
 
-    const user = createUser(result);
+    const user = await createUser(result.name, result.email, result.password, result.confirmPassword);
 
     if(user) {
         res.status(201).json({
-            _id: user.id,
-            name: user.name,
-            email: user.email,
-            token: generateToken(user._id, user.name)
+            success: true,
+            user: {
+                _id: user.id,
+                name: user.name,
+                email: user.email,
+                token: generateToken(user._id, user.name)
+            }
         })
     } else {
         res.status(400);
@@ -31,11 +34,11 @@ const registerUser = asyncHandler( async(req, res) => {
 
 });
 
-const loginUser = asyncHandler( async(req, res) => {
+const loginUser = asyncHandler( async (req, res) => {
 
     const { email, password } = req.body;
 
-    const user = checkUser(email)
+    const user = await checkUser(email);
 
     if(user && (await bcrypt.compare(password, user.password))){
         res.json({

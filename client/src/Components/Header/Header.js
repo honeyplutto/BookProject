@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import ToolBar from "@material-ui/core/ToolBar";
 import Container from "@material-ui/core/Container";
@@ -12,36 +11,77 @@ import Divider from "@material-ui/core/Divider";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import { Link } from "react-router-dom";
-
-const useStyles = makeStyles((theme) => ({
-  link: {
-    marginRight: 20,
-  },
-  avatar: {
-    marginRight: "auto",
-    color: "white",
-    backgroundColor: "black",
-    borderRadius: 0,
-    height: 30,
-    border: "2px solid gray",
-    borderLeft: "12px solid transparent",
-    borderRight: "12px solid transparent",
-  },
-}));
+import Button from "@material-ui/core/Button";
+import { useNavigate, Link } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { reset, logout } from '../../store/auth/authSlice'
+import './style.css'
 
 export default function Header() {
-  const styles = useStyles();
+
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth);
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate('/')
+  }
+  
   return (
 
     <AppBar position="sticky" color="default">
       <Container maxWidth="md">
         <ToolBar disableGutters>
           <Hidden xsDown>
-            <Link to='/' className={styles.link}>Books</Link>
-            <Link to='/login' className={styles.link}>Login</Link>
-            <Link to='/registration' className={styles.link}>Registration</Link>
+            {user.user ? (
+              <>
+                <Avatar style={{'marginRight' : '10px'}}/>
+                <Button 
+                  variant="contained" 
+                  color="primary" 
+                  onClick={onLogout}
+                >
+                  Logout
+                </Button>
+              </>
+              ) : ( 
+              <>
+                <Link 
+                  to='/' 
+                  style={{
+                    'textDecoration' : 'none',
+                    'color' : '#3f51b5',
+                    'marginRight' : '10px',
+                    'fontSize' : '18px'
+                  }}>
+                    Books
+                </Link>
+                <Link 
+                  to='/login'
+                  style={{
+                    'textDecoration' : 'none',
+                    'color' : '#3f51b5',
+                    'marginRight' : '10px',
+                    'fontSize' : '18px'
+                  }}>
+                    Login
+                  </Link>
+                <Link 
+                  to='/registration'
+                  style={{
+                    'textDecoration' : 'none',
+                    'color' : '#3f51b5',
+                    'marginRight' : '10px',
+                    'fontSize' : '18px'
+                  }}>
+                    Registration
+                  </Link>
+              </>
+             )}
+           
           </Hidden>
           <Hidden smUp>
             <IconButton onClick={() => setOpen(true)}>
@@ -69,9 +109,9 @@ export default function Header() {
         <Divider />
         <List>
             <ListItem>
-                <Link to='/'>Books</Link>
-                <Link to='/login'>Login</Link>
-                <Link to='/registration'>Registration</Link>
+                <Link to='/' >Books</Link>
+                <Link to='/login' >Login</Link>
+                <Link to='/registration' >Registration</Link>
             </ListItem>
         </List>
       </SwipeableDrawer>
