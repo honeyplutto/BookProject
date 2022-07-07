@@ -54,7 +54,7 @@ function Login() {
     }
     
     if(isSuccess || user){
-      navigate('/')
+      navigate('/book')
     }
 
     dispatch(reset());
@@ -97,20 +97,25 @@ function Login() {
           <Button 
               variant="contained" 
               color="primary" 
-              type="submit">
+              type="submit"
+              style={{
+                'marginTop' : '10px'
+              }}>
             Sign in
           </Button>
-
-          <Link 
+          
+          <span>Not an account? 
+            <Link 
             to={'/registration'}
             style={{
               'textDecoration' : 'none',
-              'fontSize' : '18px',
               'color' : '#3f51b5'
             }}
             >
-            Are you registration?
-          </Link>
+            Register
+          </Link></span>
+           
+          
 
           </Grid>
         </form>

@@ -129,7 +129,11 @@ function Registration() {
           <Button 
               variant="contained" 
               color="primary" 
-              type="submit">
+              type="submit"
+              style={{
+                'marginTop' : '10px'
+              }}
+              >
             Registration
           </Button>
         </Grid>

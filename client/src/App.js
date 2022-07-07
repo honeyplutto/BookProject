@@ -9,15 +9,17 @@ import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
 
+  // TODO create middleware to check path when login
+
   return (
     <>
       <Router>
           <div className='container'>
             <Header/>
               <Routes>
-                <Route path='/' element={ <Book /> } />
+                <Route path='/book' element={ <Book /> } />
                 <Route path='/login' element={ <Login/> } />
-                <Route path='/registration' element={ <Registration/> } />                <Route path='/registration' element={ <Registration/> } />
+                <Route path='/registration' element={ <Registration/> } />                
               </Routes>
           </div>
       </Router>

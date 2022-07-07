@@ -20,6 +20,7 @@ const getBooks = async (req, res) => {
             page: page + 1,
             limit,
             genre: genreOptions,
+            pageQtn: parseInt(total/limit),
             books 
         };
 

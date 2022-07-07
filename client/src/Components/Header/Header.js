@@ -15,7 +15,6 @@ import Button from "@material-ui/core/Button";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { reset, logout } from '../../store/auth/authSlice'
-import './style.css'
 
 export default function Header() {
 
@@ -32,13 +31,13 @@ export default function Header() {
   
   return (
 
-    <AppBar position="sticky" color="default">
+    <AppBar position="sticky" color="default" >
       <Container maxWidth="md">
         <ToolBar disableGutters>
           <Hidden xsDown>
             {user.user ? (
               <>
-                <Avatar style={{'marginRight' : '10px'}}/>
+                <Avatar style={{'marginRight' : '10px'}} />
                 <Button 
                   variant="contained" 
                   color="primary" 
@@ -49,16 +48,6 @@ export default function Header() {
               </>
               ) : ( 
               <>
-                <Link 
-                  to='/' 
-                  style={{
-                    'textDecoration' : 'none',
-                    'color' : '#3f51b5',
-                    'marginRight' : '10px',
-                    'fontSize' : '18px'
-                  }}>
-                    Books
-                </Link>
                 <Link 
                   to='/login'
                   style={{
@@ -109,7 +98,6 @@ export default function Header() {
         <Divider />
         <List>
             <ListItem>
-                <Link to='/' >Books</Link>
                 <Link to='/login' >Login</Link>
                 <Link to='/registration' >Registration</Link>
             </ListItem>
